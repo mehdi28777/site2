@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include "app/Config/panel.php";
 
 // Fonction pour obtenir les informations d'IP

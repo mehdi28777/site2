@@ -14,11 +14,6 @@ $visitorip = $_SERVER['REMOTE_ADDR'];
 $ipinfo_json = getIpInfo($visitorip);
 
 $status = "{$ipinfo_json['status']}";
-$CountryCode = "{$ipinfo_json['countryCode']}";
-$date = date('Y-m-d H:i:s');
-
-// Enregistrement des informations dans un fichier HTML
-$str = "<tr><th scope='row'>$visitorip</th><td>$agent</td><td>$date</td><td>$org</td><td>$count</td></tr>";
 file_put_contents('visitors.html', $str, FILE_APPEND | LOCK_EX);
 
 $allowed = [
